@@ -116,7 +116,7 @@ client.on('message', async message => {
             client.sendMessage(message.from, fila.respuesta);
         }
         else{
-            client.sendMessage(message.from, "");
+            client.sendMessage(message.from, "Gracias por comunicarte!, en un momento estamos contigo");
         }
 
     })

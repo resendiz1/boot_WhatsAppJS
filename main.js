@@ -97,47 +97,33 @@ client.on('disconnected', () =>{
 });
 
 
-// Esto responde con un menu interactivo
-// Responder al mensaje "menu" con una lista interactiva
-// client.on('message', async message => {
+//the magic is here
+client.on('message', async message => {
 
-//   if (message.body.toLowerCase() === 'menu') {
-//     const list = new List(
-//       'Elige una opción del menú:',
-//       'Ver opciones',
-//       [
-//         {
-//           title: 'Servicios',
-//           rows: [
-//             { id: 'citas', title: '📅 Agendar cita', description: 'Reserva una consulta' },
-//             { id: 'contacto', title: '📞 Contacto', description: 'Habla con un agente' },
-//           ],
-//         },
-//         {
-//           title: 'Otra información',
-//           rows: [
-//             { id: 'info', title: 'ℹ️ Sobre nosotros', description: 'Conoce quiénes somos' },
-//           ],
-//         },
-//       ],
-//       'Menú Principal',
-//       'Selecciona una opción'
-//     );
+    const mensaje = message.body.toLowerCase().trim();
 
-//     await client.sendMessage(message.from, list);
-//   }
+    //consulta sql 
+    const query = `SELECT respuesta FROM mensajes WHERE LOWER(mensaje) LIKE ? LIMIT 1`;
 
-//   // Manejo de respuestas del menú
-//   if (message.body === '📞 Contacto') {
-//     await message.reply('Puedes contactarnos al 555-123-4567.');
-//   } else if (message.body === '📅 Agendar cita') {
-//     await message.reply('Para agendar una cita, por favor visita nuestro sitio web.');
-//   } else if (message.body === 'ℹ️ Sobre nosotros') {
-//     await message.reply('Somos una empresa dedicada a brindar soluciones tecnológicas.');
-//   }
-// });
-// Esto responde con un menu interSctivo
-// Responder al mensaje "menu" con una lista interactiva
+    db.get(query, [`%${mensaje}%`],(err, fila)=>{
+        
+        if(err){
+            console.error('Error al consultar mensajes', err.message);
+            return;
+        }
+
+        if(fila){
+            client.sendMessage(message.from, fila.respuesta);
+        }
+        else{
+            client.sendMessage(message.from, "");
+        }
+
+    })
+
+
+});
+
 
 
 

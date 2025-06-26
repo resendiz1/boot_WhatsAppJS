@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot WhatsApp</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+
+    <div class="container-fluid" >
+        <div class="row bg-success">
+            <div class="col-12 p-3">
+                <h3 class="text-white">ChatBot WhatsApp</h3>
+                <small><b>With <i class="fa fa-heart"></i></b> by <a href="https://github.com/resendiz1" target="_blank" class="text-dark fw-bold">Arturo Resendiz</a></small>
+            </div>
+        </div>
+    </div>
+
+
+<!-- aqui esta el codigo qr la ctm -->
+    <div class="container-fluid mt-5" style="display: none;">
+        <div class="row Justify-content-center">
+            <div class="col-12 text-center">
+                <h2 id="qr-title">Escaneal el QR</h2>
+                <img id="qr" class="img-fluid w-25 w-sm-50 w-md-25  w-lg-25 mx-auto d-block" alt="">
+            </div>
+        </div>
+    </div>
+<!-- aqui esta el codigo qr la ctm -->
+
+
+
+
+    <div class="container-fluid mt-5">
+
+    <!-- formulario -->
+    <form id="formulario">
+
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h4>Agregar respuestas a posibles mensajes</h4>
+            </div>
+            <div class="col-12 col-sm-9 col-md-8 col-lg-5">
+                
+                <div class="form-outline my-3" data-mdb-input-init>
+                    <input type="text" id="mensaje" class="form-control" />
+                    <label class="form-label" for="mensaje">Mensaje Recibido</label>
+                </div>
+                
+                <div class="form-outline my-3" data-mdb-input-init>
+                    <input type="text" id="respuesta" class="form-control" />
+                    <label class="form-label" for="respuesta">Respuesta </label>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-success ">
+                        <i class="fa fa-save"></i>
+                        Guardar
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </form>
+    <!-- formulario -->
+
+
+
+
+        <div class="row">
+            <div class="col-12 text-center my-3">
+                <!-- Buttons trigger collapse -->
+                <a class="mb-3 " type="button" data-mdb-collapse-init data-mdb-ripple-init data-mdb-target="#tabla_respuestas" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fa fa-eye"></i>
+                    Respuestas del BOT
+                </a>
+            </div>
+
+            <!-- Collapsed content -->
+            <div class="collapse overflow-auto" id="tabla_respuestas" style="max-height: 500px;" >
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="thead-dark  sticky-top">
+                    <tr>
+                        <th>ID</th>
+                        <th>Mensaje recibido</th>
+                        <th>Respuesta</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabla-mensajes">
+
+                    <!-- Agrega más filas aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    
+
+
+
+<script src="renderer.js"></script>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.umd.min.js"></script>
+</body>
+</html>

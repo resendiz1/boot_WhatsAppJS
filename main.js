@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const {Client, LocalAuth, List} = require('whatsapp-web.js');
 const QRCode = require('qrcode');
 const { title, electron } = require('process');
@@ -89,12 +90,40 @@ client.on('ready', () =>{
 });
 
 
-client.on('disconnected', () =>{
 
-    console.log('Desconectado')
-    client.initialize();
+client.on('disconnected', async () => {
+
+    console.warn('📴 Cliente desconectado');
+    app.relaunch();
+    app.exit();
 
 });
+
+
+
+
+async function cerrarSesionYBorrar() {
+    try {
+        await client.logout(); // intenta cerrar sesión
+        console.log("✅ Logout exitoso, esperando 3s...");
+
+        setTimeout(() => {
+            try {
+                const sesionPath = path.join(__dirname, '.wwebjs_auth');
+                fs.rmSync(sesionPath, { recursive: true, force: true });
+                console.log("🧹 Carpeta de sesión eliminada");
+            } catch (err) {
+                console.error("❌ Error al eliminar sesión:", err.message);
+            }
+
+            client.initialize();
+        }, 3000);
+
+    } catch (err) {
+        console.error("❌ Error en logout:", err.message);
+    }
+}
+
 
 
 //the magic is here

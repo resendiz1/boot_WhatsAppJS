@@ -94,8 +94,8 @@ client.on('ready', () =>{
 client.on('disconnected', async () => {
 
     console.warn('📴 Cliente desconectado');
-    app.relaunch();
-    app.exit();
+    cerrarSesionYBorrar()
+
 
 });
 
